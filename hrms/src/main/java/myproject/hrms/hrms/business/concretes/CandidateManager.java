@@ -34,15 +34,12 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
-		//TODO: Password hash eklenecek.
 		//TODO: {field} alanı boş bırakılamaz uyarısı eklenecek.
 		//TODO: Mernis doğrulaması eklenecek.
 		//TODO: E-posta ve TC no kayıtlı ise kayıt gerçekleşmeyecek.
 		//TODO: Kaydın gerçekleşmesi için e-posta doğrulaması gerekli.
 		
-		char[] charPassword = candidate.getPassword().toCharArray();
-		this.passwordAuthenticationService.hash(charPassword);
-		candidate.setPassword(this.passwordAuthenticationService.hash(charPassword));
+		candidate.setPassword(this.passwordAuthenticationService.hash(candidate.getPassword()));
 		this.candidateDao.save(candidate);
 		return new SuccessResult("Kullanıcı eklendi.");
 	}

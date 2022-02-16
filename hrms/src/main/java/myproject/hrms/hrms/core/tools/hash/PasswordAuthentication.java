@@ -53,10 +53,11 @@ public class PasswordAuthentication implements PasswordAuthenticationService {
 	}
 	
 	@Override
-	public String hash(char[] password) {
+	public String hash(String password) {
+		char[] charPassword = password.toCharArray();
 		byte[] salt = new byte[SIZE / 8];
 		random.nextBytes(salt);
-		byte[] dk = pbkdf2(password, salt, 1 << cost);
+		byte[] dk = pbkdf2(charPassword, salt, 1 << cost);
 		byte[] hash = new byte[salt.length + dk.length];
 		System.arraycopy(salt, 0, hash, 0, salt.length);
 		System.arraycopy(dk, 0, hash, salt.length, dk.length);
@@ -95,6 +96,7 @@ public class PasswordAuthentication implements PasswordAuthenticationService {
 		}
 	}
 	
+	/*
 	  @Deprecated
 	  public String hash(String password)
 	  {
@@ -105,7 +107,8 @@ public class PasswordAuthentication implements PasswordAuthenticationService {
 	  public boolean authenticate(String password, String token)
 	  {
 	    return authenticate(password.toCharArray(), token);
-	  }
+	  } 
+	*/  
 }
 
 
