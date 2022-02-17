@@ -27,6 +27,6 @@ public class Employer extends User {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	@Column(name = "is_activated")
-	private Boolean isActivated;
+	@Column(name = "is_confirmed")
+	private Boolean isConfirmed;
 }

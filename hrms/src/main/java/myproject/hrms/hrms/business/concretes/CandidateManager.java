@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import myproject.hrms.hrms.business.abstracts.ActivationCodeService;
 import myproject.hrms.hrms.business.abstracts.CandidateService;
 import myproject.hrms.hrms.core.tools.hash.PasswordAuthenticationService;
 import myproject.hrms.hrms.core.utilities.results.DataResult;
@@ -19,12 +20,14 @@ public class CandidateManager implements CandidateService {
 
 	private CandidateDao candidateDao;
 	private PasswordAuthenticationService passwordAuthenticationService;
+	private ActivationCodeService activationCodeService;
 	
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao, PasswordAuthenticationService passwordAuthenticationService) {
+	public CandidateManager(CandidateDao candidateDao, PasswordAuthenticationService passwordAuthenticationService, ActivationCodeService activationCodeService) {
 		super();
 		this.candidateDao = candidateDao;
 		this.passwordAuthenticationService = passwordAuthenticationService;
+		this.activationCodeService = activationCodeService;
 	}
 
 	@Override
@@ -41,6 +44,7 @@ public class CandidateManager implements CandidateService {
 		
 		candidate.setPassword(this.passwordAuthenticationService.hash(candidate.getPassword()));
 		this.candidateDao.save(candidate);
+		this.activationCodeService.createActivationCode(candidate);
 		return new SuccessResult("Kullanıcı eklendi.");
 	}
 
