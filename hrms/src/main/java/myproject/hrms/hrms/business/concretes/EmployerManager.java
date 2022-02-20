@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import myproject.hrms.hrms.business.abstracts.ActivationCodeService;
+import myproject.hrms.hrms.business.abstracts.ConfirmByEmployeeService;
 import myproject.hrms.hrms.business.abstracts.EmployerService;
-import myproject.hrms.hrms.core.tools.emailValidator.EmailValidatorService;
+import myproject.hrms.hrms.core.tools.hash.PasswordAuthenticationService;
 import myproject.hrms.hrms.core.utilities.results.DataResult;
-import myproject.hrms.hrms.core.utilities.results.ErrorResult;
 import myproject.hrms.hrms.core.utilities.results.Result;
 import myproject.hrms.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.hrms.core.utilities.results.SuccessResult;
@@ -19,13 +20,17 @@ import myproject.hrms.hrms.entities.concretes.Employer;
 public class EmployerManager implements EmployerService {
 
 	private EmployerDao employerDao;
-	private EmailValidatorService emailValidatorService;
+	private ActivationCodeService activationCodeService;
+	private ConfirmByEmployeeService confirmByEmployeeService;
+	private PasswordAuthenticationService passwordAuthenticationService;
 	
 	@Autowired
-	public EmployerManager(EmployerDao employerDao, EmailValidatorService emailValidatorService) {
+	public EmployerManager(EmployerDao employerDao, ConfirmByEmployeeService confirmByEmployeeService, ActivationCodeService activationCodeService, PasswordAuthenticationService passwordAuthenticationService) {
 		super();
 		this.employerDao = employerDao;
-		this.emailValidatorService = emailValidatorService;
+		this.activationCodeService = activationCodeService;
+		this.confirmByEmployeeService = confirmByEmployeeService;
+		this.passwordAuthenticationService = passwordAuthenticationService;
 	}
 
 	@Override
@@ -39,13 +44,11 @@ public class EmployerManager implements EmployerService {
 		//TODO: Şifre tekrarı kontrolü.
 		//TODO: E-posta kayıtlı ise kayıt gerçekleşmez.
 		
-		String email = employer.getEmail();
-		String companyName = employer.getCompanyName();
-		
-		if (this.emailValidatorService.validateEmail(email, companyName)) {
-			this.employerDao.save(employer);			
-			return new SuccessResult("Şirket kaydedildi.");
-		}
-		return new ErrorResult("Şirket kaydedilemedi.");
+		employer.setIsConfirmed(false);
+		employer.setPassword(this.passwordAuthenticationService.hash(employer.getPassword()));
+		this.employerDao.save(employer);			
+		this.activationCodeService.createActivationCode(employer);
+		this.confirmByEmployeeService.createActivationRequest(employer);
+		return new SuccessResult("Şirket kaydedildi.");
 	}
 }
