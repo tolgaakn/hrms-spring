@@ -1,8 +1,13 @@
 package myproject.hrms.hrms.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +21,7 @@ import myproject.hrms.hrms.core.entities.User;
 @Table(name = "employers")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobAdvertisements"})
 public class Employer extends User {
 	
 	@Column(name = "company_name")
@@ -29,4 +35,7 @@ public class Employer extends User {
 	
 	@Column(name = "is_confirmed")
 	private Boolean isConfirmed;
+	
+	@OneToMany(mappedBy = "employer")
+	private List<JobAdvertisement> jobAdvertisements;
 }

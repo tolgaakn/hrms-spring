@@ -1,9 +1,14 @@
 package myproject.hrms.hrms.entities.concretes;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +19,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "cities")
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobAdvertisements"})
 public class City {
 
 	@Id
@@ -22,4 +28,7 @@ public class City {
 	
 	@Column(name = "name")
 	private String name;
+	
+	@OneToMany(mappedBy = "city")
+	private List<JobAdvertisement> jobAdvertisements;
 }
