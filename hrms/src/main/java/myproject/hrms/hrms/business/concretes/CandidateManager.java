@@ -37,7 +37,6 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
-		//TODO: {field} alanı boş bırakılamaz uyarısı eklenecek.
 		//TODO: Mernis doğrulaması eklenecek.
 		//TODO: E-posta ve TC no kayıtlı ise kayıt gerçekleşmeyecek.
 		//TODO: Kaydın gerçekleşmesi için e-posta doğrulaması gerekli.

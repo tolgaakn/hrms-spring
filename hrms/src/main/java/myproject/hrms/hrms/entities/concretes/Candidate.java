@@ -1,9 +1,11 @@
 package myproject.hrms.hrms.entities.concretes;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -31,4 +33,7 @@ public class Candidate extends User {
 	
 	@Column(name = "birth_date")
 	private Date birthDate;
+	
+	@OneToMany(mappedBy = "candidate")
+	private List<CandidateCoverLetter> candidateCoverLetters;
 }
