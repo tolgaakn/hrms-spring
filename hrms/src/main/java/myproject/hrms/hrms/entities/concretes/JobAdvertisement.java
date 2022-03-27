@@ -66,6 +66,9 @@ public class JobAdvertisement {
 	@Column(name = "updated_date")
 	private Date updatedDate;
 	
+	@Column(name = "is_confirmed")
+	private Boolean isConfirmed;
+	
 	@ManyToOne()
 	@JoinColumn(name = "employer_id")
 	private Employer employer;
@@ -77,4 +80,12 @@ public class JobAdvertisement {
 	@ManyToOne()
 	@JoinColumn(name = "job_position_id")
 	private JobPosition jobPosition;
+	
+	@ManyToOne()
+	@JoinColumn(name = "job_type_id")
+	private JobType jobType;
+	
+	@ManyToOne()
+	@JoinColumn(name = "work_type_id")
+	private WorkType workType;
 }
