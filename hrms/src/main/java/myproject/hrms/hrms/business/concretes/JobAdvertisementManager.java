@@ -13,6 +13,7 @@ import myproject.hrms.hrms.core.utilities.results.SuccessDataResult;
 import myproject.hrms.hrms.core.utilities.results.SuccessResult;
 import myproject.hrms.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import myproject.hrms.hrms.entities.concretes.JobAdvertisement;
+import myproject.hrms.hrms.entities.dtos.JobAdvertisementDto;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService {
@@ -55,6 +56,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<List<JobAdvertisement>> getByActiveAndEmployerId(int employerId) {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByActiveAndEmployer_Id(true, employerId));
+	}
+
+	@Override
+	public DataResult<JobAdvertisementDto> getById(int advertisementId) {
+		return new SuccessDataResult<JobAdvertisementDto>(this.jobAdvertisementDao.getById(advertisementId));
 	}
 
 }

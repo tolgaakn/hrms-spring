@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -48,6 +50,7 @@ public class JobAdvertisement {
 	@Column(name = "open_position")
 	private int openPosition;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "last_date")
 	private Date lastDate;
 	

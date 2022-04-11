@@ -13,7 +13,11 @@ export default class JobAdvertisementService{
         return axios.get("http://localhost:8080/api/jobAdvertisements/getByEmployerId?employerId=" + employerId);
     }
 
-    add(){
-        return axios.post("http://localhost:8080/api/jobAdvertisements/add");
+    getJobAdvertisementDetailsById(jobAdvertisementId){
+        return axios.get("http://localhost:8080/api/jobAdvertisements/getJobAdvertisementDetailsById?advertisementId=" + jobAdvertisementId);
+    }
+
+    add(values){
+        return axios.post("http://localhost:8080/api/jobAdvertisements/add", values);
     }
 }

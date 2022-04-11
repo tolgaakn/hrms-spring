@@ -29,7 +29,7 @@ public class JobPosition {
 	@Column(name = "id")
 	private int id;
 	
-	@Column(name = "title")
+	@Column(name = "job_position_name")
 	private String title;
 	
 	@OneToMany(mappedBy = "jobPosition")

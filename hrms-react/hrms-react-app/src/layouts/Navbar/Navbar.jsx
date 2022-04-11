@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Container, Dropdown, Image, Menu } from 'semantic-ui-react'
 
 export default function Navbar() {
@@ -11,8 +12,8 @@ export default function Navbar() {
                     <Menu.Item>
                         <Image size='mini' src='/logo.png' />
                     </Menu.Item>
-                    <Menu.Item header>Project Name</Menu.Item>
-                    <Menu.Item as='a'>Blog</Menu.Item>
+                    <Menu.Item header><Link to={`/`}>Ana Sayfa</Link></Menu.Item>
+                    <Menu.Item as='a'><Link to={`/job-advertisements`}>İş İlanları</Link></Menu.Item>
                     <Menu.Item as='a'>Articles</Menu.Item>
 
                     <Menu.Menu position='right'>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Container, Dropdown, Form, Grid, Header } from 'semantic-ui-react'
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import * as Yup from 'yup';
 import JobPositionService from "../../services/jobPositionService";
 import CityService from "../../services/cityService";
@@ -96,128 +96,130 @@ export default function AddJobAdvertisement() {
                     </Grid.Row>
                     <Grid.Row>
                         <Card fluid style={{ padding: "1em" }}>
-                            <Form onSubmit={formik.handleSubmit}>
-                                <Card.Content>
-                                    <div className='row mb-2'>
-                                        <div className='col-md-6'>
-                                            <Dropdown
-                                                name='jobPosition'
-                                                id={jobPositionOptions.id}
-                                                placeholder='İş Pozisyonu'
-                                                search selection fluid
-                                                options={jobPositionOptions}
-                                                onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
-                                                error={formik.errors.jobPosition && true}
-                                                value={formik.values.jobPosition} />
+                            <Formik value={formik.onSubmit}>
+                                <Form onSubmit={formik.handleSubmit}>
+                                    <Card.Content>
+                                        <div className='row mb-2'>
+                                            <div className='col-md-6'>
+                                                <Dropdown
+                                                    name='jobPosition'
+                                                    id={jobPositionOptions.id}
+                                                    placeholder='İş Pozisyonu'
+                                                    search selection fluid
+                                                    options={jobPositionOptions}
+                                                    onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
+                                                    error={formik.errors.jobPosition && true}
+                                                    value={formik.values.jobPosition} />
 
-                                        </div>
-                                        <div className='col-md-6'>
-                                            <Dropdown
-                                                name='city'
-                                                placeholder='Şehir'
-                                                search selection fluid
-                                                options={cityOptions}
-                                                onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
-                                                error={formik.errors.city && true}
-                                                value={formik.values.city} />
-                                        </div>
-                                    </div>
-                                    <div className='row mb-3'>
-                                        <div className='col-md-6'>
-                                            <div className="row">
-                                                <div className='col-md-6'>
-                                                    <Dropdown
-                                                        name='jobType'
-                                                        placeholder='İş Türü'
-                                                        search selection fluid
-                                                        options={jobTypeOptions}
-                                                        onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
-                                                        error={formik.errors.jobType && true}
-                                                        value={formik.values.jobType} />
-                                                </div>
-                                                <div className='col-md-6'>
-                                                    <Dropdown
-                                                        name='workType'
-                                                        placeholder='Çalışma Türü'
-                                                        search selection fluid
-                                                        options={workTypeOptions}
-                                                        onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
-                                                        error={formik.errors.workType && true}
-                                                        value={formik.values.workType} />
-                                                </div>
+                                            </div>
+                                            <div className='col-md-6'>
+                                                <Dropdown
+                                                    name='city'
+                                                    placeholder='Şehir'
+                                                    search selection fluid
+                                                    options={cityOptions}
+                                                    onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
+                                                    error={formik.errors.city && true}
+                                                    value={formik.values.city} />
                                             </div>
                                         </div>
-                                        <div className='col-md-6'>
-                                            <Form.Input
-                                                type='number'
-                                                placeholder="Açık Pozisyon"
-                                                name='openPosition'
-                                                onChange={formik.handleChange}
-                                                error={formik.errors.openPosition && true}
-                                                value={formik.values.openPosition} />
-                                        </div>
-                                    </div>
-                                    <div className="row mb-3">
-                                        <div className="col-md-6">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <Form.Input
-                                                        type='number'
-                                                        placeholder="Min. Maaş"
-                                                        name='minSalary'
-                                                        onChange={formik.handleChange}
-                                                        error={formik.errors.minSalary && true}
-                                                        value={formik.values.minSalary} />
-                                                </div>
-                                                <div className="col-md-6">
-                                                    <Form.Input
-                                                        type='number'
-                                                        placeholder="Maks. Maaş"
-                                                        name='maxSalary'
-                                                        onChange={formik.handleChange}
-                                                        error={formik.errors.maxSalary && true}
-                                                        value={formik.values.maxSalary} />
+                                        <div className='row mb-3'>
+                                            <div className='col-md-6'>
+                                                <div className="row">
+                                                    <div className='col-md-6'>
+                                                        <Dropdown
+                                                            name='jobType'
+                                                            placeholder='İş Türü'
+                                                            search selection fluid
+                                                            options={jobTypeOptions}
+                                                            onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
+                                                            error={formik.errors.jobType && true}
+                                                            value={formik.values.jobType} />
+                                                    </div>
+                                                    <div className='col-md-6'>
+                                                        <Dropdown
+                                                            name='workType'
+                                                            placeholder='Çalışma Türü'
+                                                            search selection fluid
+                                                            options={workTypeOptions}
+                                                            onChange={(event, data) => formik.handleChange("jobTitle", data.value)}
+                                                            error={formik.errors.workType && true}
+                                                            value={formik.values.workType} />
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div className='col-md-6'>
+                                                <Form.Input
+                                                    type='number'
+                                                    placeholder="Açık Pozisyon"
+                                                    name='openPosition'
+                                                    onChange={formik.handleChange}
+                                                    error={formik.errors.openPosition && true}
+                                                    value={formik.values.openPosition} />
+                                            </div>
                                         </div>
-                                        <div className="col-md-6">
-                                            <DatePicker
-                                                name='lastDate'
-                                                placeholder='Son Başvuru Tarihi'
-                                                selected={startDate}
-                                                onChange={(date) => setStartDate(date)}
-                                                error={formik.errors.lastDate && true}
-                                                value={formik.values.lastDate} />
+                                        <div className="row mb-3">
+                                            <div className="col-md-6">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <Form.Input
+                                                            type='number'
+                                                            placeholder="Min. Maaş"
+                                                            name='minSalary'
+                                                            onChange={formik.handleChange}
+                                                            error={formik.errors.minSalary && true}
+                                                            value={formik.values.minSalary} />
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <Form.Input
+                                                            type='number'
+                                                            placeholder="Maks. Maaş"
+                                                            name='maxSalary'
+                                                            onChange={formik.handleChange}
+                                                            error={formik.errors.maxSalary && true}
+                                                            value={formik.values.maxSalary} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-md-6">
+                                                <DatePicker
+                                                    name='lastDate'
+                                                    placeholder='Son Başvuru Tarihi'
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    error={formik.errors.lastDate && true}
+                                                    value={formik.values.lastDate} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='row mb-4'>
-                                        <div className="col-md-12">
-                                            <CKEditor
-                                                editor={ClassicEditor}
-                                                name="jobDescription"
-                                                data="<p>Hello from CKEditor 5!</p>"
-                                                onReady={editor => {
-                                                    // You can store the "editor" and use when it is needed.
-                                                    console.log('Editor is ready to use!', editor);
-                                                }}
-                                                onChange={(event, editor) => {
-                                                    const data = editor.getData();
-                                                    console.log({ event, editor, data });
-                                                }}
-                                                onBlur={(event, editor) => {
-                                                    console.log('Blur.', editor);
-                                                }}
-                                                onFocus={(event, editor) => {
-                                                    console.log('Focus.', editor);
-                                                }}
-                                                error={formik.errors.jobDescription && true}
-                                                value={formik.values.jobDescription}
-                                            />
+                                        <div className='row mb-4'>
+                                            <div className="col-md-12">
+                                                <CKEditor
+                                                    editor={ClassicEditor}
+                                                    name="jobDescription"
+                                                    data="<p>Hello from CKEditor 5!</p>"
+                                                    onReady={editor => {
+                                                        // You can store the "editor" and use when it is needed.
+                                                        console.log('Editor is ready to use!', editor);
+                                                    }}
+                                                    onChange={(event, editor) => {
+                                                        const data = editor.getData();
+                                                        console.log({ event, editor, data });
+                                                    }}
+                                                    onBlur={(event, editor) => {
+                                                        console.log('Blur.', editor);
+                                                    }}
+                                                    onFocus={(event, editor) => {
+                                                        console.log('Focus.', editor);
+                                                    }}
+                                                    error={formik.errors.jobDescription && true}
+                                                    value={formik.values.jobDescription}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <Button type='submit'>İlan Oluştur</Button>
-                                </Card.Content>
-                            </Form>
+                                        <Button type='submit'>İlan Oluştur</Button>
+                                    </Card.Content>
+                                </Form>
+                            </Formik>
                         </Card>
                     </Grid.Row>
                 </Grid>
